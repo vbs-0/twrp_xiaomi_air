@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-LOCAL_PATH := device/oplus/ossi
+LOCAL_PATH := device/xiaomi/air
 
 PRODUCT_COPY_FILES += \
     device/xiaomi/air/proprietary/system/bin/vold:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/sbin/vold
@@ -68,7 +68,7 @@ PRODUCT_PACKAGES += \
 
 
 # API
-PRODUCT_SHIPPING_API_LEVEL := 33
+PRODUCT_SHIPPING_API_LEVEL := 32
 
 # VNDK
 PRODUCT_TARGET_VNDK_VERSION := current
