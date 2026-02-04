@@ -7,25 +7,25 @@ ifeq ($(TARGET_DEVICE),air)
 PRODUCT_COPY_FILES += \
     device/xiaomi/air/proprietary/vendor/bin/hw/android.hardware.security.keymint@2.0-service.trustonic:root/vendor/bin/hw/android.hardware.security.keymint@2.0-service.trustonic \
     device/xiaomi/air/proprietary/vendor/bin/hw/android.hardware.gatekeeper@1.0-service:root/vendor/bin/hw/android.hardware.gatekeeper@1.0-service \
-    device/xiaomi/air/proprietary/vendor/bin/hw/vendor.trustonic.soter@1.0-service:root/vendor/bin/hw/vendor.trustonic.soter@1.0-service
+    device/xiaomi/air/proprietary/vendor/bin/hw/vendor.microtrust.soter@1.0-service:root/vendor/bin/hw/vendor.microtrust.soter@1.0-service
 
 # vendor helper binaries
 PRODUCT_COPY_FILES += \
-    device/xiaomi/air/proprietary/vendor/bin/mcDriverDaemon:root/vendor/bin/mcDriverDaemon \
+    device/xiaomi/air/proprietary/vendor/bin/teei_daemon:root/vendor/bin/teei_daemon \
     device/xiaomi/air/proprietary/vendor/bin/vndservice:root/vendor/bin/vndservice \
     device/xiaomi/air/proprietary/vendor/bin/vndservicemanager:root/vendor/bin/vndservicemanager
 
 # vendor libraries: TEE / keymaster / gatekeeper pieces (64-bit)
 PRODUCT_COPY_FILES += \
-    device/xiaomi/air/proprietary/vendor/lib64/libMcClient.so:root/vendor/lib64/libMcClient.so \
+    device/xiaomi/air/proprietary/vendor/lib64/libMiClient.so:root/vendor/lib64/libMiClient.so \
     device/xiaomi/air/proprietary/vendor/lib64/libkmsetkey.so:root/vendor/lib64/libkmsetkey.so \
-    device/xiaomi/air/proprietary/vendor/lib64/libMcTeeSoter.so:root/vendor/lib64/libMcTeeSoter.so \
-    device/xiaomi/air/proprietary/vendor/lib64/libMcGatekeeper.so:root/vendor/lib64/libMcGatekeeper.so \
+    device/xiaomi/air/proprietary/vendor/lib64/libMiTeeSoter.so:root/vendor/lib64/libMiTeeSoter.so \
+    device/xiaomi/air/proprietary/vendor/lib64/libMiGatekeeper.so:root/vendor/lib64/libMiGatekeeper.so \
     device/xiaomi/air/proprietary/vendor/lib64/libSoftGatekeeper.so:root/vendor/lib64/libSoftGatekeeper.so \
-    device/xiaomi/air/proprietary/vendor/lib64/gatekeeper.trustonic.so:root/vendor/lib64/gatekeeper.trustonic.so \
+    device/xiaomi/air/proprietary/vendor/lib64/gatekeeper.microtrust.so:root/vendor/lib64/gatekeeper.microtrust.so \
     device/xiaomi/air/proprietary/vendor/lib64/libladder.so:root/vendor/lib64/libladder.so \
     device/xiaomi/air/proprietary/vendor/lib64/libTEECommon.so:root/vendor/lib64/libTEECommon.so \
-    device/xiaomi/air/proprietary/vendor/lib64/vendor.trustonic.hardware.soter-V1-ndk.so:root/vendor/lib64/vendor.trustonic.hardware.soter-V1-ndk.so
+    device/xiaomi/air/proprietary/vendor/lib64/vendor.microtrust.hardware.soter-V1-ndk.so:root/vendor/lib64/vendor.microtrust.hardware.soter-V1-ndk.so
 
 # keymint NDK glue (critical)
 PRODUCT_COPY_FILES += \
