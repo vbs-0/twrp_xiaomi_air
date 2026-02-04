@@ -1,20 +1,32 @@
 #
-# Copyright (C) 2022 The TWRP Open Source Project
+# Copyright (C) 2024 The Android Open Source Project
+# Copyright (C) 2024 SebaUbuntu's TWRP device tree generator
 #
-# API
-PRODUCT_SHIPPING_API_LEVEL := 33
+# SPDX-License-Identifier: Apache-2.0
+#
 
-# Dynamic
+LOCAL_PATH := device/oplus/ossi
+
+PRODUCT_COPY_FILES += \
+    device/xiaomi/air/proprietary/system/bin/vold:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/sbin/vold
+
+# Dynamic Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # Virtual A/B
 ENABLE_VIRTUAL_AB := true
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
-
-# SDCard replacement functionality
-$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
-
 AB_OTA_UPDATER := true
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
+
+# A/B
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_system=true \
+    POSTINSTALL_PATH_system=system/bin/otapreopt_script \
+    FILESYSTEM_TYPE_system=ext4 \
+    POSTINSTALL_OPTIONAL_system=true
+
 AB_OTA_PARTITIONS := \
     boot \
     init_boot \
@@ -30,59 +42,49 @@ AB_OTA_PARTITIONS := \
     odm_dlkm \
     vbmeta_system \
     vbmeta_vendor
-    
-# Update engine
-PRODUCT_PACKAGES += \
-    checkpoint_gc \
-    update_engine \
-    update_engine_sideload \
-    update_verifier
-
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_system=true \
-    POSTINSTALL_PATH_system=system/bin/mtk_plpath_utils \
-    FILESYSTEM_TYPE_system=erofs \
-    POSTINSTALL_OPTIONAL_system=true
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.2-mtkimpl \
-    android.hardware.boot@1.2-mtkimpl.recovery
+    android.hidl.base@1.0 \
+    android.hardware.boot@1.2-impl \
+    android.hardware.boot@1.2-impl.recovery \
+    android.hardware.boot@1.2-service
 
-PRODUCT_PACKAGES_DEBUG += \
-    bootctrl
-
-# Health
 PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl \
     android.hardware.health@2.1-service
 
-# Build MT-PL-Utils
-PRODUCT_PACKAGES += \
-    mtk_plpath_utils \
-    mtk_plpath_utils.recovery
+PRODUCT_PACKAGES_DEBUG += \
+    bootctrl
 
-# Keystore
 PRODUCT_PACKAGES += \
-    android.system.keystore2
+    bootctrl.mt6835 \
+    bootctrl.mt6835.recovery
 
-# Keymint
+# Fastbootd
 PRODUCT_PACKAGES += \
-    android.hardware.security.keymint \
-    android.hardware.security.secureclock \
-    android.hardware.security.sharedsecret
+    android.hardware.fastboot@1.1-impl-mock \
+    fastbootd
 
-# Drm
+
+# API
+PRODUCT_SHIPPING_API_LEVEL := 33
+
+# VNDK
+PRODUCT_TARGET_VNDK_VERSION := current
+
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.4
+    otapreopt_script \
+    cppreopts.sh \
+    update_engine \
+    update_verifier \
+    update_engine_sideload
 
-# Keymaster
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.1
-
-# Additional target Libraries
+# Additional binaries & libraries needed for recovery
 TARGET_RECOVERY_DEVICE_MODULES += \
-    android.hardware.keymaster@4.1
-    
-TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.keymaster@4.1.so
+    libkeymaster4 \
+    libkeymaster41
+
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += $(DEVICE_PATH)

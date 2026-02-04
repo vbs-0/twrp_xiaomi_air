@@ -4,9 +4,4 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-
-PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/twrp_air.mk
-
-COMMON_LUNCH_CHOICES := \
-    twrp_air-eng
+export ALLOW_MISSING_DEPENDENCIES=true
