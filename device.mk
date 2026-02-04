@@ -67,22 +67,22 @@ PRODUCT_PACKAGES += \
     android.system.keystore2
 
 # Keymint
-PRODUCT_PACKAGES += \
-    android.hardware.security.keymint \
-    android.hardware.security.secureclock \
-    android.hardware.security.sharedsecret
+#PRODUCT_PACKAGES += \
+#    android.hardware.security.keymint \
+#    android.hardware.security.secureclock \
+#    android.hardware.security.sharedsecret
 
 # Drm
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.4
 
 # Keymaster
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.1
+#PRODUCT_PACKAGES += \
+#    android.hardware.keymaster@4.1
 
 # Additional target Libraries
-TARGET_RECOVERY_DEVICE_MODULES += \
-    android.hardware.keymaster@4.1
+#TARGET_RECOVERY_DEVICE_MODULES += \
+#    android.hardware.keymaster@4.1
     
-TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.keymaster@4.1.so
+#TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
+#    $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.keymaster@4.1.so
